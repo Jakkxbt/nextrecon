@@ -1,0 +1,26 @@
+[project]
+name = "nextrecon"
+version = "0.1.0"
+description = "Next.js & JS Bundle Recon Tool — secrets, env vars, routes, endpoints"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [
+    {name = "CobraSEC", email = "cobrasec@proton.me"}
+]
+keywords = ["security", "recon", "nextjs", "bug-bounty", "pentest", "javascript"]
+
+dependencies = [
+    "requests>=2.28",
+    "rich>=13.0",
+]
+
+[project.scripts]
+nextrecon = "nextrecon:main"
+
+[build-system]
+requires = ["setuptools>=80", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+py-modules = ["nextrecon"]
