@@ -424,10 +424,11 @@ def save_report(target: str, results: dict, output_dir: str | None = None):
     filename = f"nextrecon_{domain}_{ts}.md"
 
     if output_dir:
-        path = Path(output_dir) / filename
+        path = Path(output_dir).expanduser().resolve() / filename
     else:
         path = Path.home() / "bughunt" / "nextrecon" / filename
-        path.parent.mkdir(parents=True, exist_ok=True)
+
+    path.parent.mkdir(parents=True, exist_ok=True)
 
     lines = [
         f"# NextRecon Report — {target}",
