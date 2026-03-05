@@ -290,12 +290,53 @@ def check_exposed_files(session: requests.Session, base_url: str) -> list[tuple[
         ("/_next/static/development/_buildManifest.js", "Dev build manifest"),
     ]
 
+    # Content signatures — confirm the file is real, not a redirect to index.html
+    SIGNATURES = {
+        "/.git/config":          ["[core]", "[remote"],
+        "/.git/HEAD":            ["ref:", "refs/"],
+        "/.env":                 ["=", "API", "KEY", "SECRET", "DB_"],
+        "/.env.local":           ["=", "API", "KEY", "SECRET"],
+        "/.env.production":      ["=", "API", "KEY", "SECRET"],
+        "/.env.development":     ["=", "API", "KEY", "SECRET"],
+        "/package.json":         ['"name"', '"version"', '"dependencies"'],
+        "/package-lock.json":    ['"lockfileVersion"', '"packages"'],
+        "/yarn.lock":            ["__metadata", "version:"],
+        "/next.config.js":       ["module.exports", "nextConfig", "const next"],
+        "/next.config.ts":       ["nextConfig", "NextConfig", "import"],
+        "/swagger.json":         ['"swagger"', '"openapi"', '"paths"'],
+        "/openapi.json":         ['"openapi"', '"paths"', '"info"'],
+        "/graphql":              ['"data"', '"errors"', '"__schema"', "graphql"],
+        "/api/graphql":          ['"data"', '"errors"', '"__schema"'],
+        "/graphiql":             ["graphiql", "GraphiQL", "__schema"],
+        "/_next/static/development/_devPagesManifest.json": ['"pages"', '["/', '["/'],
+        "/_next/static/development/_buildManifest.js":      ["__BUILD_MANIFEST", "sortedPages"],
+    }
+
     found = []
     def check(path, label):
         url = urljoin(base_url, path)
-        r = get(url, session)
-        if r and r.status_code in (200, 301, 302, 403):
-            return (url, label, r.status_code)
+        try:
+            r = session.get(url, headers=HEADERS, timeout=TIMEOUT, allow_redirects=False)
+        except Exception:
+            return None
+
+        # Only count direct 200/403 — no redirects
+        if r.status_code == 403:
+            return (url, label, 403)
+
+        if r.status_code == 200:
+            body = r.text[:2000]
+            # Reject if it looks like an HTML page (likely SPA redirect)
+            if body.lstrip().startswith("<!") or "<html" in body[:200].lower():
+                sigs = SIGNATURES.get(path)
+                if not sigs or not any(s in body for s in sigs):
+                    return None
+            # Verify content signature if defined
+            sigs = SIGNATURES.get(path)
+            if sigs and not any(s in body for s in sigs):
+                return None
+            return (url, label, 200)
+
         return None
 
     with ThreadPoolExecutor(max_workers=15) as ex:
