@@ -24,14 +24,18 @@ from rich.text import Text
 
 # ── Config ────────────────────────────────────────────────────────────────────
 
-BANNER = r"""[bold red]
- ███╗   ██╗███████╗██╗  ██╗████████╗██████╗ ███████╗ ██████╗ ██████╗ ███╗   ██╗
- ████╗  ██║██╔════╝╚██╗██╔╝╚══██╔══╝██╔══██╗██╔════╝██╔════╝██╔═══██╗████╗  ██║
- ██╔██╗ ██║█████╗   ╚███╔╝    ██║   ██████╔╝█████╗  ██║     ██║   ██║██╔██╗ ██║
- ██║╚██╗██║██╔══╝   ██╔██╗    ██║   ██╔══██╗██╔══╝  ██║     ██║   ██║██║╚██╗██║
- ██║ ╚████║███████╗██╔╝ ██╗   ██║   ██║  ██║███████╗╚██████╗╚██████╔╝██║ ╚████║
- ╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚══════╝ ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝[/bold red]
-[dim red]  Next.js & JS Bundle Recon  ·  CobraSEC  ·  BYOK  ·  NO LEASH[/dim red]
+BANNER = r"""
+[bold cyan] ░▒▓ [/bold cyan][bold white]NEXT[/bold white][bold cyan]RECON[/bold cyan][bold white] — JS BUNDLE INTELLIGENCE[/bold white][bold cyan] ▓▒░[/bold cyan]
+
+[bold cyan]  ███╗  ██╗███████╗██╗  ██╗████████╗[/bold cyan][bold white]██████╗ ███████╗ ██████╗ ██████╗ ███╗  ██╗[/bold white]
+[bold cyan]  ████╗ ██║██╔════╝╚██╗██╔╝╚══██╔══╝[/bold cyan][bold white]██╔══██╗██╔════╝██╔════╝██╔══██╗████╗ ██║[/bold white]
+[bold cyan]  ██╔██╗██║█████╗   ╚███╔╝    ██║   [/bold cyan][bold white]██████╔╝█████╗  ██║     ██║  ██║██╔██╗██║[/bold white]
+[bold cyan]  ██║╚████║██╔══╝   ██╔██╗    ██║   [/bold cyan][bold white]██╔══██╗██╔══╝  ██║     ██║  ██║██║╚████║[/bold white]
+[bold cyan]  ██║ ╚███║███████╗██╔╝ ██╗   ██║   [/bold cyan][bold white]██║  ██║███████╗╚██████╗██████╔╝██║ ╚███║[/bold white]
+[bold cyan]  ╚═╝  ╚══╝╚══════╝╚═╝  ╚═╝   ╚═╝   [/bold cyan][bold white]╚═╝  ╚═╝╚══════╝ ╚═════╝╚═════╝ ╚═╝  ╚══╝[/bold white]
+
+[dim cyan]  ⬡  secrets  ·  env vars  ·  routes  ·  endpoints  ·  source maps  ⬡[/dim cyan]
+[dim white]                    CobraSEC  ·  v0.1.0[/dim white]
 """
 
 console = Console()
