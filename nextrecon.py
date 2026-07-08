@@ -25,17 +25,15 @@ from rich.text import Text
 # ── Config ────────────────────────────────────────────────────────────────────
 
 BANNER = r"""
-[bold cyan] ░▒▓ [/bold cyan][bold white]NEXT[/bold white][bold cyan]RECON[/bold cyan][bold white] — JS BUNDLE INTELLIGENCE[/bold white][bold cyan] ▓▒░[/bold cyan]
-
-[bold cyan]  ███╗  ██╗███████╗██╗  ██╗████████╗[/bold cyan][bold white]██████╗ ███████╗ ██████╗ ██████╗ ███╗  ██╗[/bold white]
-[bold cyan]  ████╗ ██║██╔════╝╚██╗██╔╝╚══██╔══╝[/bold cyan][bold white]██╔══██╗██╔════╝██╔════╝██╔══██╗████╗ ██║[/bold white]
-[bold cyan]  ██╔██╗██║█████╗   ╚███╔╝    ██║   [/bold cyan][bold white]██████╔╝█████╗  ██║     ██║  ██║██╔██╗██║[/bold white]
-[bold cyan]  ██║╚████║██╔══╝   ██╔██╗    ██║   [/bold cyan][bold white]██╔══██╗██╔══╝  ██║     ██║  ██║██║╚████║[/bold white]
-[bold cyan]  ██║ ╚███║███████╗██╔╝ ██╗   ██║   [/bold cyan][bold white]██║  ██║███████╗╚██████╗██████╔╝██║ ╚███║[/bold white]
-[bold cyan]  ╚═╝  ╚══╝╚══════╝╚═╝  ╚═╝   ╚═╝   [/bold cyan][bold white]╚═╝  ╚═╝╚══════╝ ╚═════╝╚═════╝ ╚═╝  ╚══╝[/bold white]
-
-[dim cyan]  ⬡  secrets  ·  env vars  ·  routes  ·  endpoints  ·  source maps  ⬡[/dim cyan]
-[dim white]                    CobraSEC  ·  v0.1.0[/dim white]
+[bold red]  ███╗  ██╗███████╗██╗  ██╗████████╗██████╗ ███████╗ ██████╗ ██████╗ ███╗  ██╗[/bold red]
+[bold red]  ████╗ ██║██╔════╝╚██╗██╔╝╚══██╔══╝██╔══██╗██╔════╝██╔════╝██╔══██╗████╗ ██║[/bold red]
+[bold red]  ██╔██╗██║█████╗   ╚███╔╝    ██║   ██████╔╝█████╗  ██║     ██║  ██║██╔██╗██║[/bold red]
+[red]  ██║╚████║██╔══╝   ██╔██╗    ██║   ██╔══██╗██╔══╝  ██║     ██║  ██║██║╚████║[/red]
+[red]  ██║ ╚███║███████╗██╔╝ ██╗   ██║   ██║  ██║███████╗╚██████╗██████╔╝██║ ╚███║[/red]
+[red]  ╚═╝  ╚══╝╚══════╝╚═╝  ╚═╝   ╚═╝  ╚═╝  ╚═╝╚══════╝ ╚═════╝╚═════╝ ╚═╝  ╚══╝[/red]
+[dim]  ───────────────────────────────────────────────────────────────────────────[/dim]
+[dim red]  ⬡  secrets  ·  env vars  ·  routes  ·  endpoints  ·  source maps  ⬡[/dim red]
+[dim white]                         CobraSEC  ·  v0.1.0[/dim white]
 """
 
 console = Console()
@@ -55,7 +53,7 @@ SECRETS = {
     # Cloud / Infra
     "AWS Access Key":       (r"AKIA[0-9A-Z]{16}", "CRITICAL"),
     "AWS Secret Key":       (r"(?i)aws.{0,20}secret.{0,20}['\"][0-9a-zA-Z/+]{40}['\"]", "CRITICAL"),
-    "GCP API Key":          (r"AIza[0-9A-Za-z\-_]{35}", "CRITICAL"),
+    "Google API Key":       (r"AIza[0-9A-Za-z\-_]{35}", "CRITICAL"),
     "Firebase Config":      (r"\"apiKey\"\s*:\s*\"AIza[0-9A-Za-z\-_]{35}\"", "CRITICAL"),
     "Firebase Database":    (r"https://[a-z0-9\-]+\.firebaseio\.com", "HIGH"),
     "Firebase Storage":     (r"gs://[a-z0-9\-]+\.appspot\.com", "HIGH"),
@@ -82,8 +80,9 @@ SECRETS = {
     "Segment Write Key":    (r"(?i)segment.{0,20}['\"][A-Za-z0-9]{20,}['\"]", "MEDIUM"),
     "Amplitude Key":        (r"(?i)amplitude.{0,20}apiKey.{0,20}['\"][a-f0-9]{32}['\"]", "MEDIUM"),
     "Hotjar Site ID":       (r"(?i)hotjar.{0,20}['\"][0-9]{5,}['\"]", "LOW"),
-    # Maps / Location
-    "Google Maps Key":      (r"AIza[0-9A-Za-z\-_]{35}", "HIGH"),
+    # Maps / Location  (Google Maps keys are AIza… — indistinguishable from any
+    # other Google API key by the raw value, so they are covered by "Google API
+    # Key" above rather than duplicated here.)
     "Mapbox Token":         (r"pk\.eyJ1[a-zA-Z0-9_.]{40,}", "HIGH"),
     "Mapbox Secret":        (r"sk\.eyJ1[a-zA-Z0-9_.]{40,}", "CRITICAL"),
     # Search
@@ -92,7 +91,13 @@ SECRETS = {
     # Dev / SCM
     "GitHub Token":         (r"ghp_[a-zA-Z0-9]{36}", "CRITICAL"),
     "GitHub Actions":       (r"ghs_[a-zA-Z0-9]{36}", "CRITICAL"),
+    "GitHub Fine-grained":  (r"github_pat_[0-9A-Za-z_]{60,}", "CRITICAL"),
+    "GitLab PAT":           (r"glpat-[0-9A-Za-z_\-]{20,}", "CRITICAL"),
     "NPM Token":            (r"npm_[A-Za-z0-9]{36}", "CRITICAL"),
+    # AI / LLM providers
+    "OpenAI API Key":       (r"sk-(?!ant-)(?:proj-)?[A-Za-z0-9_\-]{20,}", "CRITICAL"),
+    "Anthropic API Key":    (r"sk-ant-[A-Za-z0-9_\-]{20,}", "CRITICAL"),
+    "Slack App Token":      (r"xapp-[0-9]-[A-Za-z0-9\-]{10,}", "HIGH"),
     # Infra / DB
     "MongoDB URI":          (r"mongodb(\+srv)?://[^\"'\s]{10,}", "CRITICAL"),
     "PostgreSQL URI":       (r"postgres(ql)?://[^\"'\s]{10,}", "CRITICAL"),

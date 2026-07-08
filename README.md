@@ -73,7 +73,7 @@ nextrecon -l targets.txt -o ~/bughunt/results/
 
 ## Secret Coverage (35+ patterns)
 
-AWS · GCP · Firebase · Stripe · Sendgrid · Twilio · Mailgun · Slack · Sentry · Mixpanel · Segment · Mapbox · Algolia · Auth0 · Okta · GitHub tokens · NPM tokens · MongoDB · PostgreSQL · MySQL · Redis · JWT · Intercom · Zendesk · Ethereum private keys · Infura · Alchemy · and more.
+AWS · GCP / Google · Firebase · Stripe · Sendgrid · Twilio · Mailgun · Slack (webhook, bot & app tokens) · Sentry · Mixpanel · Segment · Mapbox · Algolia · Auth0 · Okta · GitHub tokens (classic & fine-grained) · GitLab PAT · NPM tokens · OpenAI · Anthropic · MongoDB · PostgreSQL · MySQL · Redis · JWT · Intercom · Zendesk · Ethereum private keys · Infura · Alchemy · and more.
 
 ---
 
