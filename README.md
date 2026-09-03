@@ -1,4 +1,19 @@
-# nextrecon
+<p align="center">
+  <img src="assets/banner.png" alt="CobraSEC · Red Arsenal · nextrecon" width="100%">
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/CobraSEC-Red_Arsenal-ef4444?style=for-the-badge&labelColor=1a0a0a">
+  <img src="https://img.shields.io/badge/License-MIT-f87171?style=for-the-badge&labelColor=1a0a0a">
+  <img src="https://img.shields.io/badge/Python-3.x-fca5a5?style=for-the-badge&labelColor=1a0a0a">
+  <img src="https://img.shields.io/badge/Status-Active-16a34a?style=for-the-badge&labelColor=1a0a0a">
+</p>
+
+<h1 align="center">nextrecon</h1>
+<p align="center"><b>Next.js & JS bundle recon — secrets, env vars, API endpoints, routes</b><br><sub><i>CobraSEC · Offense informs Defense.</i></sub></p>
+
+---
+
 
 ```
  ███╗   ██╗███████╗██╗  ██╗████████╗██████╗ ███████╗ ██████╗ ██████╗ ███╗   ██╗
